@@ -1,65 +1,75 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { useState } from 'react'
+
 
 export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+	const [shortUrl, updateShortUrl] = useState('')
+	let [longUrl, updateLongUrl] = useState('')
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+	const [message0, updateMessage0] = useState('')
+	const [link0, updateLink0] = useState('')
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+	const setShortUrl = async (e) => {
+		e.preventDefault()
+		updateMessage0('Creating...')
+		updateLink0('')
+		if (!longUrl.includes('.')) {
+			return updateMessage0('URL is not valid')
+		}
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+		if (longUrl.substring(0, 7) !== 'http://' && longUrl.substring(0, 8) !== 'https://') {
+			longUrl = 'http://' + longUrl
+		}
+		const dataObj = { short_url: shortUrl, long_url: longUrl }
+		const response0 = await fetch(`/api/shortner`, {
+			method: 'POST',
+			body: JSON.stringify(dataObj)
+		})
+		if (response0.status === 400) {
+			return updateMessage0('Short-URL is already in use, try another')
+		}
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+		updateMessage0('')
+		updateLink0(`${process.env.BASE_URL}/${shortUrl}`)
+	}
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+	const copyShortUrl = () => {
+		navigator.clipboard.writeText(`${process.env.BASE_URL}/${shortUrl}`)
+		alert(`Copied Short-URL: ${process.env.BASE_URL}/${shortUrl}`)
+	}
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+	return (
+		<div>
+			<Head>
+				<title>in | URL Shortner</title>
+				<link rel="icon" href="/link.png" />
+			</Head>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+			<main>
+				<h1>URL Shortner</h1>
+
+				<form>
+					<label>Long URL:
+						<input type='text' value={longUrl} onChange={e => updateLongUrl(e.target.value)} />
+					</label>
+
+					<label>Short URL:
+						<input type='text' value={shortUrl} onChange={e => updateShortUrl(e.target.value)} />
+						<p>Shortned-URL: {process.env.BASE_URL}/{shortUrl}</p>
+					</label>
+
+					<button className='create-btn' onClick={e => setShortUrl(e)}>Create</button>
+				</form>
+				<p>{message0}</p>
+
+				<div className='creation-result' style={link0.length > 0 ? {} : { display: 'none' }}>
+					<p>
+						Short URL: "{link0}" created successfully.
+						<button onClick={copyShortUrl}>Copy Short-URL</button>
+					</p>
+				</div>
+
+			</main>
+		</div>
+	)
 }

@@ -1,16 +1,68 @@
-html,
+/* Color Reference - https://www.happyhues.co/palettes/13 */
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+	Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	background-color: #0f0e17;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+body, input, button {
+	font-size: 16px;
 }
 
-* {
-  box-sizing: border-box;
+h1, p, a, label, button {
+	color: #fffffe;
+}
+
+
+main {
+	display: grid;
+	place-items: center;
+}
+
+form {
+	position: relative;
+}
+
+label {
+	display: block;
+	margin: 20px;	
+}
+
+label > input {
+	margin-left: 5px;
+	width: 70vw;
+	height: 35px;
+}
+
+button {
+	margin-left: 15px;
+	background-color: #ff8906;
+	padding: 7px;
+	cursor: pointer;
+	border: none;
+	border-radius: 7px;
+}
+
+.create-btn {
+	position: absolute;
+	right: 10px;
+}
+
+.creation-result {
+	margin-top: 30px;
+}
+
+
+@media screen and (min-width: 700px) {
+	body, input, button {
+		font-size: 18px;
+	}
+	label > input {
+		margin-left: 15px;
+	}
+
+	button {
+		padding: 10px;
+	}
 }
