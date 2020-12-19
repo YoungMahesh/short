@@ -1,17 +1,20 @@
 {
-  "name": "nextjs",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "faunadb": "^4.0.0",
-    "next": "10.0.3",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
-  }
+	"name": "nextjs",
+	"version": "0.1.0",
+	"engines": {
+		"node": "12.x"
+	},
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start"
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"faunadb": "^4.0.0",
+		"next": "10.0.3",
+		"react": "17.0.1",
+		"react-dom": "17.0.1"
+	}
 }
