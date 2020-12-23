@@ -45,9 +45,14 @@ export default function Home() {
 				<link rel="icon" href="/link.png" />
 			</Head>
 
-			<main>
-				<h1>URL Shortner</h1>
+			<header>
+				<h3>URL Shortner</h3>
+				<h4>
+					<a href='https://github.com/YoungMahesh/in' target='_blank' >| View Source</a>
+				</h4>
+			</header>
 
+			<main>
 				<form>
 					<label>Long URL:
 						<input type='text' value={longUrl} onChange={e => updateLongUrl(e.target.value)} />
@@ -70,6 +75,10 @@ export default function Home() {
 				</div>
 
 			</main>
+
+			<footer>
+				<h5>Note: Links are going to be preserved upto 31st March 2021 for guranteed.</h5>
+			</footer>
 		</div>
 	)
 }

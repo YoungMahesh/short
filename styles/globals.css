@@ -6,24 +6,32 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 	Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	background-color: #0f0e17;
+	margin: 0;
 }
 
 body, input, button {
 	font-size: 16px;
 }
 
-h1, p, a, label, button {
+h1, p, a, label, header, footer, button {
 	color: #fffffe;
 }
 
-button {
+header, button {
 	background-color: #ff8906;
 }
 
 
 
 /*				position of elements on page					*/
+header {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+
 main {
+	margin-top: 50px;
 	display: grid;
 	place-items: center;
 }
@@ -60,7 +68,13 @@ button {
 	margin-top: 30px;
 }
 
+footer {
+	position: absolute;
+	bottom: 0;
 
+	width: 100%;
+	text-align: center;
+}
 
 /*		modifications fordisplay above 700px width					*/
 @media screen and (min-width: 700px) {
