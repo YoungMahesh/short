@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useState } from 'react'
 
 
@@ -61,6 +62,12 @@ export default function Home() {
 					<label>Short URL:
 						<input type='text' value={shortUrl} onChange={e => updateShortUrl(e.target.value)} />
 						<p>Shortned-URL: {process.env.BASE_URL}/{shortUrl}</p>
+
+						<p style={{ color: '#ff8906' }}
+						>
+							To shorten Youtube-url --&gt; to official-youtube-short-url: <Link href='/yt'><a style={{ color: 'inherit' }}>
+								Click here</a></Link>
+						</p>
 					</label>
 
 					<button className='create-btn' onClick={e => setShortUrl(e)}>Create</button>
