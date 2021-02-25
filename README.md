@@ -1,4 +1,4 @@
-## Shorten your url
+## :link: Shorten your url
 
 - when you want to share a url about facebook-post or twitter-post or news-post, etc, generally the url you are providing is very large.
 - Large URLs looks ugly compared to short urls.
@@ -6,7 +6,7 @@
 - Websites you shortned on this website, lives here permanantly, short-custom-url once used would never again be used for another site, so you don't need to worry about wrong redirection of link in future.
 
 
-## System-Design
+## :link: System-Design
 
 - NextJS/ReactJS is used as frontend for the site
 - NodeJS is used as backend
