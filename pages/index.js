@@ -83,9 +83,6 @@ export default function Home() {
 
 			</main>
 
-			<footer>
-				<h5>Note: Links are going to be preserved upto 31st March 2021 for guranteed.</h5>
-			</footer>
 		</div>
 	)
 }
