@@ -1,45 +1,45 @@
-import Head from "next/head";
-import Link from "next/link";
-import { useState } from "react";
+import Head from 'next/head'
+import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Home() {
-  const [shortUrl, updateShortUrl] = useState("");
-  let [longUrl, updateLongUrl] = useState("");
+  const [shortUrl, updateShortUrl] = useState('')
+  let [longUrl, updateLongUrl] = useState('')
 
-  const [message0, updateMessage0] = useState("");
-  const [link0, updateLink0] = useState("");
+  const [message0, updateMessage0] = useState('')
+  const [link0, updateLink0] = useState('')
 
   const setShortUrl = async (e) => {
-    e.preventDefault();
-    updateMessage0("Creating...");
-    updateLink0("");
-    if (!longUrl.includes(".")) {
-      return updateMessage0("URL is not valid");
+    e.preventDefault()
+    updateMessage0('Creating...')
+    updateLink0('')
+    if (!longUrl.includes('.')) {
+      return updateMessage0('URL is not valid')
     }
 
     if (
-      longUrl.substring(0, 7) !== "http://" &&
-      longUrl.substring(0, 8) !== "https://"
+      longUrl.substring(0, 7) !== 'http://' &&
+      longUrl.substring(0, 8) !== 'https://'
     ) {
-      longUrl = "http://" + longUrl;
+      longUrl = 'http://' + longUrl
     }
-    const dataObj = { short_url: shortUrl, long_url: longUrl };
+    const dataObj = { short_url: shortUrl, long_url: longUrl }
     const response0 = await fetch(`/api/short`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(dataObj),
-    });
+    })
     if (response0.status === 400) {
-      return updateMessage0("Short-URL is already in use, try another");
+      return updateMessage0('Short-URL is already in use, try another')
     }
 
-    updateMessage0("");
-    updateLink0(`${process.env.BASE_URL}/${shortUrl}`);
-  };
+    updateMessage0('')
+    updateLink0(`${process.env.BASE_URL}/${shortUrl}`)
+  }
 
   const copyShortUrl = () => {
-    navigator.clipboard.writeText(`${process.env.BASE_URL}/${shortUrl}`);
-    alert(`Copied Short-URL: ${process.env.BASE_URL}/${shortUrl}`);
-  };
+    navigator.clipboard.writeText(`${process.env.BASE_URL}/${shortUrl}`)
+    alert(`Copied Short-URL: ${process.env.BASE_URL}/${shortUrl}`)
+  }
 
   return (
     <div>
@@ -78,10 +78,10 @@ export default function Home() {
             <p>
               Shortned-URL: {process.env.BASE_URL}/{shortUrl}
             </p>
-            <p style={{ color: "#ff8906" }}>
-              To shorten Youtube-url --&gt; to official-youtube-short-url:{" "}
+            <p style={{ color: '#ff8906' }}>
+              To shorten Youtube-url --&gt; to official-youtube-short-url:{' '}
               <Link href="/yt">
-                <a style={{ color: "inherit" }}>Click here</a>
+                <a style={{ color: 'inherit' }}>Click here</a>
               </Link>
             </p>
           </label>
@@ -94,7 +94,7 @@ export default function Home() {
 
         <div
           className="creation-result"
-          style={link0.length > 0 ? {} : { display: "none" }}
+          style={link0.length > 0 ? {} : { display: 'none' }}
         >
           <p>
             Short URL: "{link0}" created successfully.
@@ -103,5 +103,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  );
+  )
 }

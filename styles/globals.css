@@ -1,90 +1,98 @@
 /* Color Reference - https://www.happyhues.co/palettes/13 */
 
-
-/* 				color and font styles					*/ 
+/* 				color and font styles					*/
 body {
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-	Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	background-color: #0f0e17;
-	margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #0f0e17;
+  margin: 0;
 }
 
-body, input, button {
-	font-size: 16px;
+body,
+input,
+button {
+  font-size: 16px;
 }
 
-h1, p, a, label, header, footer, button {
-	color: #fffffe;
+h1,
+p,
+a,
+label,
+header,
+footer,
+button {
+  color: #fffffe;
 }
 
-header, button {
-	background-color: #ff8906;
+header,
+button {
+  background-color: #ff8906;
 }
-
-
 
 /*				position of elements on page					*/
 header {
-	display: flex;
-	justify-content: space-between;
-	padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
 main {
-	margin-top: 50px;
-	display: grid;
-	place-items: center;
+  margin-top: 50px;
+  display: grid;
+  place-items: center;
 }
 
 form {
-	position: relative;
+  position: relative;
 }
 
 form > label {
-	display: block;
-	margin: 20px;	
+  display: block;
+  margin: 20px;
 }
 
 label > input {
-	margin-left: 5px;
-	width: 70vw;
-	height: 35px;
+  margin-left: 5px;
+  width: 70vw;
+  height: 35px;
 }
 
 button {
-	margin-left: 15px;
-	padding: 7px;
-	cursor: pointer;
-	border: none;
-	border-radius: 7px;
+  margin-left: 15px;
+  padding: 7px;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
 }
 
 .create-btn {
-	position: absolute;
-	right: 10px;
+  position: absolute;
+  right: 10px;
 }
 
 .creation-result {
-	margin-top: 30px;
+  margin-top: 30px;
 }
 
 footer {
-	position: absolute;
-	bottom: 0;
+  position: absolute;
+  bottom: 0;
 
-	width: 100%;
-	text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 /*		modifications fordisplay above 700px width					*/
 @media screen and (min-width: 700px) {
-	body, input, button {
-		font-size: 18px;
-	}
-	label > input {
-		margin-left: 15px;
-	}
-	button {
-		padding: 10px;
-	}
+  body,
+  input,
+  button {
+    font-size: 18px;
+  }
+  label > input {
+    margin-left: 15px;
+  }
+  button {
+    padding: 10px;
+  }
 }

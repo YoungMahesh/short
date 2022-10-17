@@ -1,42 +1,42 @@
-import Head from "next/head";
-import { useState } from "react";
+import Head from 'next/head'
+import { useState } from 'react'
 
 export default function Youtube() {
-  const [shortUrl, updateShortUrl] = useState("");
-  let [longUrl, updateLongUrl] = useState("");
+  const [shortUrl, updateShortUrl] = useState('')
+  let [longUrl, updateLongUrl] = useState('')
 
-  const [message0, updateMessage0] = useState("");
+  const [message0, updateMessage0] = useState('')
 
   const isAlreadyShort = (url) => {
-    const regex = /^youtu.be\/\w{8,13}/;
-    return regex.test(url);
-  };
+    const regex = /^youtu.be\/\w{8,13}/
+    return regex.test(url)
+  }
 
   const isValidYoutubeUrl = (url) => {
     const regex =
-      /^https:\/\/(www\.youtube\.com\/watch\?v=|youtu.be\/)\w{8,13}$/; // I found - every time \w{11} in long-urls
-    return regex.test(url);
-  };
+      /^https:\/\/(www\.youtube\.com\/watch\?v=|youtu.be\/)\w{8,13}$/ // I found - every time \w{11} in long-urls
+    return regex.test(url)
+  }
 
   const createShortUrl = () => {
-    updateMessage0("");
+    updateMessage0('')
 
     if (isAlreadyShort(longUrl)) {
-      updateMessage0(`"${longUrl}" is already a shortned url`);
+      updateMessage0(`"${longUrl}" is already a shortned url`)
     } else if (isValidYoutubeUrl(longUrl)) {
-      const original = /^https:\/\/(www\.youtube\.com\/watch\?v=|youtu.be\/)/; // https://www.youtube.com/watch?v= or https://youtu.be/
-      const replaceWith = "youtu.be/";
-      const newUrl = longUrl.replace(original, replaceWith);
-      updateShortUrl(newUrl);
+      const original = /^https:\/\/(www\.youtube\.com\/watch\?v=|youtu.be\/)/ // https://www.youtube.com/watch?v= or https://youtu.be/
+      const replaceWith = 'youtu.be/'
+      const newUrl = longUrl.replace(original, replaceWith)
+      updateShortUrl(newUrl)
     } else {
-      updateMessage0("This is not valid youtube url");
+      updateMessage0('This is not valid youtube url')
     }
-  };
+  }
 
   const copyShortUrl = () => {
-    navigator.clipboard.writeText(shortUrl);
-    alert(`Copied Short-URL: ${shortUrl}`);
-  };
+    navigator.clipboard.writeText(shortUrl)
+    alert(`Copied Short-URL: ${shortUrl}`)
+  }
 
   return (
     <div>
@@ -73,15 +73,15 @@ export default function Youtube() {
 
         <div
           className="creation-result"
-          style={shortUrl.length > 0 ? {} : { display: "none" }}
+          style={shortUrl.length > 0 ? {} : { display: 'none' }}
         >
           <p>
-            Youtube Short-URL:{" "}
-            <span style={{ marginLeft: "7px" }}>{shortUrl}</span>
+            Youtube Short-URL:{' '}
+            <span style={{ marginLeft: '7px' }}>{shortUrl}</span>
             <button onClick={copyShortUrl}>Copy Short-URL</button>
           </p>
         </div>
       </main>
     </div>
-  );
+  )
 }
