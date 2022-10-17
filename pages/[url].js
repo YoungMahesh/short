@@ -49,7 +49,7 @@ export async function getServerSideProps(context) {
 
   // fetch the longUrl connected to shortUrl from the backend-api
   let longUrl = null;
-  const response0 = await fetch(`${baseUrl}/api/shortner?short_url=${url}`);
+  const response0 = await fetch(`${baseUrl}/api/short?short_url=${url}`);
 
   // if shortUrl exists in database, then provide longUrl connected to it to the frontend else provide null
   if (response0.status === 200) {

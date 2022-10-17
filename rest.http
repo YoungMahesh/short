@@ -1,0 +1,10 @@
+POST http://localhost:3000/api/short
+content-type: application/json
+
+{
+    "short_url": "sample",
+    "long_url": "a long url"
+}
+
+### 
+GET http://localhost:3000/api/short?short_url=sample

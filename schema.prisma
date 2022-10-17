@@ -1,0 +1,14 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model urls {
+  id        Int     @id @default(autoincrement())
+  short_url String? @unique
+  long_url  String
+}

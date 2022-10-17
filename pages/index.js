@@ -24,7 +24,7 @@ export default function Home() {
       longUrl = "http://" + longUrl;
     }
     const dataObj = { short_url: shortUrl, long_url: longUrl };
-    const response0 = await fetch(`/api/shortner`, {
+    const response0 = await fetch(`/api/short`, {
       method: "POST",
       body: JSON.stringify(dataObj),
     });
