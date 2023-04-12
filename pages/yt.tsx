@@ -7,12 +7,12 @@ export default function Youtube() {
 
   const [message0, updateMessage0] = useState('')
 
-  const isAlreadyShort = (url) => {
+  const isAlreadyShort = (url: string) => {
     const regex = /^youtu.be\/\w{8,13}/
     return regex.test(url)
   }
 
-  const isValidYoutubeUrl = (url) => {
+  const isValidYoutubeUrl = (url: string) => {
     const regex =
       /^https:\/\/(www\.youtube\.com\/watch\?v=|youtu.be\/)\w{8,13}$/ // I found - every time \w{11} in long-urls
     return regex.test(url)
@@ -48,7 +48,11 @@ export default function Youtube() {
       <header>
         <h3>Youtube URL shortner</h3>
         <h4>
-          <a href="https://github.com/YoungMahesh/in" target="_blank">
+          <a
+            href="https://github.com/YoungMahesh/in"
+            target="_blank"
+            rel="noreferrer"
+          >
             | View Source
           </a>
         </h4>

@@ -1,15 +1,23 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 
 export default function Home() {
+  const [pageOrigin, setPageOrigin] = useState('')
+
   const [shortUrl, updateShortUrl] = useState('')
   let [longUrl, updateLongUrl] = useState('')
 
   const [message0, updateMessage0] = useState('')
   const [link0, updateLink0] = useState('')
 
-  const setShortUrl = async (e) => {
+  useEffect(() => {
+    setPageOrigin(window.location.origin)
+  }, [])
+
+  const setShortUrl = async (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
     e.preventDefault()
     updateMessage0('Creating...')
     updateLink0('')
@@ -17,12 +25,6 @@ export default function Home() {
       return updateMessage0('URL is not valid')
     }
 
-    if (
-      longUrl.substring(0, 7) !== 'http://' &&
-      longUrl.substring(0, 8) !== 'https://'
-    ) {
-      longUrl = 'http://' + longUrl
-    }
     const dataObj = { short_url: shortUrl, long_url: longUrl }
     const response0 = await fetch(`/api/short`, {
       method: 'POST',
@@ -33,12 +35,12 @@ export default function Home() {
     }
 
     updateMessage0('')
-    updateLink0(`${process.env.BASE_URL}/${shortUrl}`)
+    updateLink0(`${pageOrigin}/${shortUrl}`)
   }
 
   const copyShortUrl = () => {
-    navigator.clipboard.writeText(`${process.env.BASE_URL}/${shortUrl}`)
-    alert(`Copied Short-URL: ${process.env.BASE_URL}/${shortUrl}`)
+    navigator.clipboard.writeText(`${pageOrigin}/${shortUrl}`)
+    alert(`Copied Short-URL: ${pageOrigin}/${shortUrl}`)
   }
 
   return (
@@ -51,7 +53,11 @@ export default function Home() {
       <header>
         <h3>URL Shortner</h3>
         <h4>
-          <a href="https://github.com/YoungMahesh/in" target="_blank">
+          <a
+            href="https://github.com/YoungMahesh/in"
+            target="_blank"
+            rel="noreferrer"
+          >
             | View Source
           </a>
         </h4>
@@ -76,7 +82,7 @@ export default function Home() {
               onChange={(e) => updateShortUrl(e.target.value)}
             />
             <p>
-              Shortned-URL: {process.env.BASE_URL}/{shortUrl}
+              Shortned-URL: {pageOrigin}/{shortUrl}
             </p>
             <p style={{ color: '#ff8906' }}>
               To shorten Youtube-url --&gt; to official-youtube-short-url:{' '}
@@ -97,7 +103,7 @@ export default function Home() {
           style={link0.length > 0 ? {} : { display: 'none' }}
         >
           <p>
-            Short URL: "{link0}" created successfully.
+            Short URL: &quot;{link0}&quot; created successfully.
             <button onClick={copyShortUrl}>Copy Short-URL</button>
           </p>
         </div>

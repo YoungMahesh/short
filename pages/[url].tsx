@@ -1,23 +1,37 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
-const UrlPage = ({ longUrl, baseUrl, url }) => {
-  // if longUrl is null, then provided shortUrl is not in use
-  if (longUrl === null) {
-    return (
-      <p>
-        Short-URL: "{baseUrl}/{url}" is not in use,{' '}
-        <a href={baseUrl}>click here to use this url</a>{' '}
-      </p>
-    )
-  }
+const UrlPage = ({ url }: { url: string }) => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [longUrl, setLongUrl] = useState('')
+  const [baseUrl, setBaseUrl] = useState('')
 
-  // else redirect current-page to the longUrl
   useEffect(() => {
-    window.location.href = longUrl
-  })
+    setBaseUrl(window.location.origin)
+  }, [])
 
-  // show redirecting-message to the user until longUrl-page "loading..." ends
+  useEffect(() => {
+    ;(async () => {
+      try {
+        // fetch the longUrl connected to shortUrl from the backend-api
+        const response0 = await fetch(`api/short?short_url=${url}`)
+
+        // if shortUrl exists in database, then provide longUrl connected to it to the frontend else provide null
+        if (response0.status === 200) {
+          let { long_url } = await response0.json()
+          if (!/^https?:\/\//i.test(long_url)) {
+            long_url = 'http://' + long_url
+          }
+          window.location.href = long_url
+          setLongUrl(long_url)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+      setIsLoading(false)
+    })()
+  }, [])
+
   return (
     <div>
       <Head>
@@ -26,38 +40,31 @@ const UrlPage = ({ longUrl, baseUrl, url }) => {
       </Head>
 
       <main>
-        <p>
-          Redirecting to:{' '}
-          <a href={longUrl} target="_blank">
-            {longUrl}
-          </a>
-        </p>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : longUrl.length ? (
+          <p>
+            Redirecting to: &nbsp;
+            <a href={longUrl} target="_blank" rel="noreferrer">
+              {longUrl}
+            </a>
+          </p>
+        ) : (
+          <p>
+            Short-URL: &quot;{baseUrl}/{url}&quot; is not in use,{' '}
+            <a href={baseUrl}>click here to use this url</a>{' '}
+          </p>
+        )}
       </main>
     </div>
   )
 }
 
-export async function getServerSideProps(context) {
-  // baseUrl is necessary for fetching data
-  const baseUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://in.now.sh'
-
+export async function getServerSideProps(context: any) {
   // get short_url provided in params
   const { url } = context.params
-
-  // fetch the longUrl connected to shortUrl from the backend-api
-  let longUrl = null
-  const response0 = await fetch(`${baseUrl}/api/short?short_url=${url}`)
-
-  // if shortUrl exists in database, then provide longUrl connected to it to the frontend else provide null
-  if (response0.status === 200) {
-    const { long_url } = await response0.json()
-    longUrl = long_url
-  }
   return {
-    props: { longUrl, baseUrl, url }, // will be passed to the page component as props
+    props: { url }, // will be passed to the page component as props
   }
 }
 
